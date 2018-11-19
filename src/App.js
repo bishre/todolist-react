@@ -4,6 +4,18 @@ import TodoList from './TodoList';
 import TodoItems from './TodoItems';
 import { addMessage } from './actions/postActions';
 import {connect} from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+
+const Links = () => (
+  <ul>
+    <li><Link to="/">Home</Link></li>
+    <li><Link to="/items">Items</Link></li>
+  </ul>
+)
 
 class App extends Component {
   constructor() {
@@ -28,27 +40,33 @@ class App extends Component {
       })
     }
   }
-  // deleteItem = key => {
-  //   const filteredItems = this.props.messages.filter(item => {
-  //     return item.key !== key
-  //   })
-  //
-  //   console.log(filteredItems);
-  //   console.log(this.props.messages);
-  // }
+
   render() {
     return (
-      <div className="App">
-        <TodoList
-          onSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          currentItem={this.state.currentItem}
-        />
-        <TodoItems
-          entries={this.props.messages}
-          deleteItem={this.deleteItem}
-        />
-      </div>
+        <Router>
+        <div className="App">
+          <Links />
+          <Route exact path="/" render={(props)=>(
+            <TodoList
+            {...props}
+            onSubmit={this.handleSubmit}
+            currentItem={this.state.currentItem}
+            handleChange={this.handleChange}
+            />
+          )}
+          />
+          <Route path="/items" render={(props)=>(
+            <TodoItems
+              {...props}
+              entries={this.props.messages}
+              deleteItem={this.deleteItem}
+            />
+          )}
+          />
+          </div>
+
+        </Router>
+
     );
   }
 }

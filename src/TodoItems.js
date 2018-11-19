@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 class TodoItems extends Component {
   createTasks = item =>{
@@ -8,7 +8,14 @@ class TodoItems extends Component {
     const todoEntries = this.props.entries;
     const listItems = todoEntries.map(this.createTasks);
 
-    return <ul className="theList">{listItems}</ul>
+    return (
+      <div>
+      <p>To do Items</p>
+      <ul className="theList">{listItems}</ul>
+      </div>
+
+    )
+
   }
 }
 
